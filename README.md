@@ -1,6 +1,6 @@
 # Notum
 --------------
-
+[ ![Codeship Status for peeter-tomberg/notum](https://codeship.io/projects/bbcf01d0-da23-0131-bf92-4e1afa282a9f/status)](https://codeship.io/projects/24265)
 
 ## Installation
 ```
