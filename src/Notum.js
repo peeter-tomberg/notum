@@ -98,18 +98,19 @@ define(function (require) {
 
     };
 
+
     /**
-     * If we hit a protected route as a an unauthorized user we should call this function after we've logged in
+     * If we hit a protected route as a an unauthorized user we should call this function after we've logged in.
      * @method resume
-     * @returns {Notum}
+     * @returns {boolean} Determines if we hit a private route
      */
     Notum.prototype.resume = function () {
         if (!this.authorized) {
-            throw new Error('Cannot resume, we haven\'t hit a private route');
+            return false;
         }
         this.authorized();
         delete this.authorized;
-        return this;
+        return true;
     };
 
     return Notum;
