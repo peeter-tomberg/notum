@@ -85,11 +85,7 @@ define(function (require) {
             Backbone.history.start();
 
             expect(callback).toHaveBeenCalled();
-            /**
-             * First function for the callback should be a function that should be invoked when a user has logged in
-             */
-            expect(callback.calls.argsFor(0)[0] instanceof Function).toBeTruthy();
-            /**
+                   /**
              * Since we're not authorized we shouldn't have hit the route either
              */
             expect(privateCallback).not.toHaveBeenCalled();
@@ -97,7 +93,7 @@ define(function (require) {
             /**
              * Lets assume we've authorized now and wish to invoke the route now
              */
-            callback.calls.argsFor(0)[0]();
+            notum.resume();
             expect(privateCallback).toHaveBeenCalled();
 
 

@@ -79,12 +79,12 @@ define(function (require) {
                     var callbackArguments = Array.prototype.slice.call(arguments);
                     callbackArguments.shift(); //The first argument is the actual callback we're calling
 
-                    var authorizedInvocation = function () {
+                    var authorizedInvocation = notum.authorized = function () {
                         originalCallback.apply(this, callbackArguments);
                     };
 
                     if (!notum.isAuthorized) {
-                        notum.callback(authorizedInvocation);
+                        notum.callback();
                     }
                     else {
                         authorizedInvocation();
@@ -96,6 +96,20 @@ define(function (require) {
 
         return this;
 
+    };
+
+    /**
+     * If we hit a protected route as a an unauthorized user we should call this function after we've logged in
+     * @method resume
+     * @returns {Notum}
+     */
+    Notum.prototype.resume = function () {
+        if (!this.authorized) {
+            throw new Error('Cannot resume, we haven\'t hit a private route');
+        }
+        this.authorized();
+        delete this.authorized;
+        return this;
     };
 
     return Notum;
